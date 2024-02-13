@@ -1,0 +1,58 @@
+@base = http://localhost:5000
+
+GET {{base}}
+
+###
+# register
+POST {{base}}/api/auth/register
+
+###
+# login
+POST {{base}}/api/auth/login
+
+###
+# user routes
+GET {{base}}/api/user/all
+###
+GET {{base}}/api/user/:id
+
+###
+PUT {{base}}/api/user/update/:id
+Content-Type: application/json
+
+{
+    
+}
+
+###
+DELETE  {{base}}/api/user/delete/:id
+
+###
+# post routes
+GET {{base}}/api/post/all
+###
+GET {{base}}/api/post/:id
+
+###
+POST {{base}}/api/post/create
+
+###
+PUT {{base}}/api/post/update/:id
+
+###
+DELETE  {{base}}/api/post/delete/:id
+
+###
+# comment routes
+GET {{base}}/api/comment/all
+
+###
+POST {{base}}/api/comment/create
+###
+GET {{base}}/api/comment/:id
+
+###
+PUT {{base}}/api/comment/update/:id
+
+###
+DELETE  {{base}}/api/comment/delete/:id
