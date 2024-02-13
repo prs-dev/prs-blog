@@ -1,6 +1,7 @@
-const {errorGen} = require('../utils/error')
+// const {errorGen} = require('../utils/error')
 const User = require('../models/User')
-const {hashPassword} = require('../utils/encrypt')
+const {errorGen, hashPassword, genToken,comparePasswords} = require('../utils/utils')
+// const {hashPassword} = require('../utils/encrypt')
 
 const registerUser = async(req, res, next) => {
     try {
@@ -14,8 +15,7 @@ const registerUser = async(req, res, next) => {
         })
         await newUser.save()
         return res.status(200).json({
-            message: "User registered",
-            user: newUser
+            message: "User registered successfully"
         })
     } catch (error) {
         next(error)
@@ -23,8 +23,26 @@ const registerUser = async(req, res, next) => {
     // console.log('register')
 }
 
-const loginUser = (req, res, next) => {
-    console.log('login')
+const loginUser = async(req, res, next) => {
+    try {
+        const {email, password} = req.body
+        if(!email || !password) return next(errorGen(400, "Please provide all the fields!"))
+        const user = await User.findOne({email})
+        if(!user) return next(errorGen(404, 'User does not exist!'))
+       if(!await comparePasswords(password, user.password)) return next(errorGen(401, "Invalid password!"))
+        const token = genToken(user._id)
+        // const {password: test, ...rest} = user._doc
+        delete user._doc.password
+        return res.status(200).json({
+            message: "Login successful",
+            token,
+            // user: rest
+            user
+        })
+    } catch (error) {
+        next(error)
+    }
+    // console.log('login')
 }
 
 module.exports = {

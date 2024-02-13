@@ -1,9 +1,8 @@
 const express = require('express')
 require('dotenv').config()
 
-const {connectDb} = require('./utils/db')
+const {connectDb, errorGen} = require('./utils/utils')
 const { errorHandler, logger } = require('./middlewares/middlewares')
-const { errorGen } = require('./utils/error')
 const authRouter = require('./routes/auth.routes')
 const userRouter = require('./routes/user.routes')
 const postRouter = require('./routes/post.routes')

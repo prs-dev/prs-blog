@@ -1,3 +1,5 @@
+
+
 const getAllUsers = (req, res, next) => {
     console.log('getAllUsers')
 }
