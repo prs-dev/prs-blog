@@ -1,4 +1,6 @@
-
+const getProfile = (req, res, next) => {
+    res.status(200).json({user: req.user})
+}
 
 const getAllUsers = (req, res, next) => {
     console.log('getAllUsers')
@@ -23,5 +25,6 @@ module.exports = {
     getAllUsers,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getProfile
 }
